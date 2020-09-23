@@ -1,0 +1,11 @@
+{
+  "openAPIMode": "mqtt",
+  "openAPIUrl": "openapi.tuyacn.com",
+
+  "clientId": "",
+  "secret": "",
+
+  "code": "",
+
+  "deviceId": ""
+}
