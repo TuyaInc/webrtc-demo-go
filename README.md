@@ -1,1 +1,1 @@
-# webrtc-demo-go
+Tuya WebRTC Web Sample
