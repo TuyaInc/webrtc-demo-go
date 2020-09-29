@@ -11,7 +11,16 @@ import (
 
 // InitToken 根据授权码获取token
 func InitToken() (err error) {
-	url := fmt.Sprintf("https://%s/v1.0/token?grant_type=2&code=%s", config.App.OpenAPIURL, config.App.Code)
+	var url string
+
+	switch config.App.AuthMode {
+	case "easy":
+		url = fmt.Sprintf("https://%s/v1.0/token?grant_type=1", config.App.OpenAPIURL)
+	case "auth":
+		url = fmt.Sprintf("https://%s/v1.0/token?grant_type=2&code=%s", config.App.OpenAPIURL, config.App.Auth.Code)
+	default:
+		return fmt.Errorf("unsupported auth mode %s", config.App.AuthMode)
+	}
 
 	body, err := Rest("GET", url, nil)
 	if err != nil {
@@ -84,7 +93,15 @@ func syncToConfig(body []byte) error {
 		return errors.New("expire_time not exist")
 	}
 
-	config.App.UID = uIdValue.String()
+	switch config.App.AuthMode {
+	case "easy":
+		config.App.UID = config.App.Easy.UID
+	case "auth":
+		config.App.UID = uIdValue.String()
+	default:
+		return fmt.Errorf("unsupported auth mode %s", config.App.AuthMode)
+	}
+
 	config.App.AccessToken = accessTokenValue.String()
 	config.App.RefreshToken = refreshTokenValue.String()
 	config.App.ExpireTime = expireTimeValue.Int()
