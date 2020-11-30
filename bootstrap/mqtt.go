@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
+	"strings"
+
 	"github.com/google/uuid"
 	"github.com/tidwall/gjson"
 	"github.com/webrtc-demo-go/config"
 	"github.com/webrtc-demo-go/types"
-	"log"
-	"strings"
 )
 
 // GetMotoIDAndAuth 根据用户id和设备id从开放平台获取信令服务moto的id、webRTC认证需要的授权码
@@ -108,11 +109,11 @@ func LoadHubConfig() (config *types.OpenIoTHubConfig, err error) {
 }
 
 func getOpenIoTHubConfig() ([]byte, error) {
-	url := fmt.Sprintf("https://%s/v2.0/open-iot-hub/access/config", config.App.OpenAPIURL)
+	url := fmt.Sprintf("https://%s/v1.0/open-hub/access/config", config.App.OpenAPIURL)
 
 	request := &types.OpenIoTHubConfigRequest{
 		UID:      config.App.UID,
-		UniqueID: uuid.New().String(),
+		LinkID:   uuid.New().String(),
 		LinkType: "mqtt",
 		Topics:   "ipc",
 	}
