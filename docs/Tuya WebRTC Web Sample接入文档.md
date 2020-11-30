@@ -25,17 +25,17 @@
 
 2. 更新Sample webrtc.json中的`clientId`和`secret`
 
-3. 访问[Tuya开放平台授权](https://openapi.tuyacn.com/selectAuth?client_id=kydhkuwwehqrvd8pfpv5&redirect_uri=https://www.example.com/auth&state=1234)，输入Tuya账号密码，同意授权，截取浏览器回调URL中的授权码`code`
+3. 认证模式分为easy简单模式和auth授权码模式
+    * easy，填写uId到webrtc.json
+    * auth，访问[Tuya开放平台授权](https://openapi.tuyacn.com/selectAuth?client_id=kydhkuwwehqrvd8pfpv5&redirect_uri=https://www.example.com/auth&state=1234)，输入Tuya账号密码，同意授权，截取浏览器回调URL中的授权码`code`，填写到webrtc.json
 
-4. 更新Sample webrtc.json中的`code`
+4. 涂鸦智能APP中选中一台IPC，查询设备ID，更新到Sample webrtc.json的`deviceId`
 
-5. 涂鸦智能APP中选中一台IPC，查询设备ID，更新到Sample webrtc.json的`deviceId`
+5. 在Sample源码路径，执行`go get`后执行`go build`
 
-6. 在Sample源码路径，执行`go get`后执行`go build`
+6. 运行`./webrtc-web-sample`
 
-7. 运行`./webrtc-web-sample`
-
-8. Chrome打开`http://localhost:3333`，点击`Call`按钮，即可开始WebRTC会话
+7. Chrome打开`http://localhost:3333`，点击`Call`按钮，即可开始WebRTC会话
 
 ## Q&A
 1. 获取开放平台configs后，需要将`result.source_topic.ipc`JSON字段中`/av/u/`后的字符串作为MQTT Header中的from，这样才能正确接受涂鸦MQTT服务的消息

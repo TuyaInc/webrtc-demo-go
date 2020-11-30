@@ -37,7 +37,7 @@ type OpenIoTHubConfig struct {
 // OpenIoTHubConfigRequest 向开放平台申请mqtt连接的http请求体
 type OpenIoTHubConfigRequest struct {
 	UID      string `json:"uid"`       // 涂鸦用户id
-	UniqueID string `json:"unique_id"` // 连接端按unique_id隔离，当同一用户需要在多端登录时，调用方需要保证unique_id不同
+	LinkID   string `json:"link_id"`   // 连接端按link_id隔离，当同一用户需要在多端登录时，调用方需要保证link_id不同
 	LinkType string `json:"link_type"` // 连接类型，暂只支持mqtt
 	Topics   string `json:"topics"`    // 关注的mqtt topic，本Sample只关注ipc topic
 }
