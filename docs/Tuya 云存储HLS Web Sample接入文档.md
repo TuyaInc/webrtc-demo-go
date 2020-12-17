@@ -1,26 +1,21 @@
-# Tuya WebRTC Web Sample接入文档
+# Tuya 云存储HLS Web Sample接入文档
 
-![Tuya WebRTC Web Sample业务流程图](./openapi_webrtc.png)
+![Tuya 云存储HLS Web Sample业务流程图](./openapi_storage_hls.png)
 
 ## 模块组成
 ### Web前端
-* 提供用于Chrome访问观看设备webRTC实时流的页面
-* 与Web后端通过WebSocket协议通信
-* 调用Javascript API生成webRTC offer和candidate
+* 提供用于Chrome访问云存储资源的页面
 
 ### Web后端
 * 托管Web页面
 * 访问涂鸦云，通过HTTP协议获取需要的各种配置信息
-* 连接涂鸦MQTT服务
+* 访问涂鸦云，通过HTTP协议请求云存储相关信息
 
 ### 涂鸦云
 * 提供开放平台各种HTTP接口
 
-### 涂鸦MQTT
-* 提供异步的数据传输通道
-
-### 涂鸦IPC
-* 涂鸦摄像头
+### 涂鸦Stream
+* 涂鸦流媒体服务
 
 
 ## Step By Step
@@ -38,7 +33,17 @@
 
 6. 运行`./webrtc-demo-go`
 
-7. Chrome打开`http://localhost:3333`，点击`Call`按钮，即可开始WebRTC会话
+### 获取时间轴
+1. Chrome打开`http://localhost:3333/api/cloud/timeline?timeGT=1607939286&timeLT=1607945715`
 
-## Q&A
-1. 获取开放平台configs后，需要将`result.source_topic.ipc`JSON字段中`/av/u/`后的字符串作为MQTT Header中的from，这样才能正确接受涂鸦MQTT服务的消息
+### 获取HLS播放资源列表
+1. Chrome打开`http://localhost:3333/api/cloud/hls?timeGT=1607939286&timeLT=1607945715`
+
+### 播放HLS资源
+1. VLC打开`https://wework1.wgine.com:554/cloudrecord/6c763ce20a233d7da4qto7/bvbks0p525qb1mf6n0t0XJq6M1CNa4Fw.m3u8`
+
+## VLC下载
+### Windows
+* `https://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe`
+### Mac
+* `https://get.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg`
