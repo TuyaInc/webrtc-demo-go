@@ -100,7 +100,7 @@ function closeWS() {
 async function fetchWebRTCConfigs() {
     console.log("fetch webrtc configs")
 
-    gSessionId = Math.random().toString(36).substring(7)
+    gSessionId = uuid()
 
     sendFetchWebRTCConfigs()
 }
